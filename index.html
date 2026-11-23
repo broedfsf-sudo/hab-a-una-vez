@@ -4,71 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Sueño que no se Rindió - Gabriel Taborin</title>
-    <!-- Fuentes elegantes -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f7f4ea; /* Tono crema/papel */
+            --bg-color: #f7f4ea;
             --text-color: #2c3e50;
+            --accent-color: #c0392b;
+            --paper-bg: rgba(255, 255, 255, 0.85);
         }
 
         body {
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
-            /* Sutil textura de papel */
             background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
             color: var(--text-color);
             font-family: 'Lora', serif;
             overflow-x: hidden;
         }
 
-        /* Contenedor principal */
-        .gallery-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 50px 20px 150px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 120px; /* Espacio entre diapositivas */
-        }
-
-        /* Estilo de cada diapositiva */
-        .slide {
-            width: 100%;
-            max-width: 1000px;
-            opacity: 0;
-            transform: translateY(60px) scale(0.95);
-            transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-            /* Marco de la imagen */
-            border-radius: 12px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            border: 12px solid #fff;
-            background-color: #fff;
-            position: relative;
-        }
-
-        /* Efecto cuando la diapositiva entra en pantalla */
-        .slide.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .slide img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 4px;
-        }
-
-        /* Toque especial para la última imagen */
-        .slide:last-child {
-            border-color: #e0d8c8; /* Marco más antiguo */
-            max-width: 800px;
-        }
-
-        /* Cabecera flotante (opcional, pero le da un toque profesional) */
         header {
             text-align: center;
             padding: 60px 20px 20px 20px;
@@ -77,7 +31,7 @@
 
         header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin: 0;
             color: #3a4a5a;
         }
@@ -93,16 +47,127 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsive para móviles */
+        /* Contenedor principal */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px 150px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 80px;
+        }
+
+        /* Envoltura de cada diapositiva y su texto */
+        .slide-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .slide-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .slide {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border: 12px solid #fff;
+            background-color: #fff;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Botón para leer el texto */
+        .btn-toggle-text {
+            margin-top: 25px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(192, 57, 43, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-toggle-text:hover {
+            background-color: #a93226;
+            transform: translateY(-2px);
+        }
+
+        /* Caja de texto desplegable */
+        .story-text {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-in-out, opacity 0.6s ease-in-out, margin 0.6s;
+            width: 90%;
+            background: var(--paper-bg);
+            border-radius: 15px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 10px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.1);
+            opacity: 0;
+            margin-top: 0;
+        }
+
+        .story-text.active {
+            max-height: 2500px; /* Suficiente para el texto más largo */
+            opacity: 1;
+            margin-top: 20px;
+            padding: 30px;
+        }
+
+        .story-text h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+            font-size: 1.6rem;
+            margin-top: 0;
+            border-bottom: 2px solid #e0d8c8;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .story-text p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-align: justify;
+            color: #334;
+        }
+
+        .story-text blockquote {
+            font-style: italic;
+            border-left: 4px solid var(--accent-color);
+            margin: 20px 0;
+            padding-left: 20px;
+            color: #555;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .gallery-container {
-                gap: 60px;
-                padding: 20px 15px 100px 15px;
-            }
-            .slide {
-                border-width: 6px; /* Marco más fino en móviles */
-            }
-            header h1 { font-size: 1.8rem; }
+            header h1 { font-size: 2rem; }
+            .gallery-container { gap: 50px; }
+            .slide { border-width: 6px; }
+            .story-text.active { padding: 20px; width: 95%; }
+            .story-text p { font-size: 1.05rem; }
         }
     </style>
 </head>
@@ -114,44 +179,138 @@
     </header>
 
     <div class="gallery-container">
+        
         <!-- Diapositiva 1 -->
-        <div class="slide"><img src="img1.jpg" alt="Portada - El Sueño que no se Rindió"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img1.jpg" alt="Portada"></div>
+        </div>
         
         <!-- Diapositiva 2 -->
-        <div class="slide"><img src="img2.jpg" alt="Un joven con un cuaderno"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img2.jpg" alt="Un joven con un cuaderno"></div>
+            <button class="btn-toggle-text" onclick="toggleText(this)">📖 Leer texto</button>
+            <div class="story-text">
+                <h3>EL JOVEN GABRIEL</h3>
+                <p>Hace muchos, muchos años, en un pequeño pueblo de Francia llamado Belleydoux, vivía un joven llamado Gabriel Taborin.</p>
+                <p>Desde pequeño, Gabriel había aprendido a trabajar, a rezar y a ayudar a los demás. Le gustaba estar con los niños, enseñarles y hablarles de Jesús.</p>
+                <p>En muchos pueblos del campo, los niños no tenían buenas oportunidades para aprender. Faltaban maestros, escuelas y personas que los acompañaran en su crecimiento. Y él pensaba que esos chicos merecían mucho más.</p>
+                <p>¿Y si formamos una comunidad de hermanos que se dediquen a enseñarles? —se preguntaba—. Podríamos vivir juntos, ayudarnos y llegar a muchos niños que nos necesitan.</p>
+                <p>Su sueño era formar una familia de hermanos. Una familia en la que cada uno tuviera algo para aportar, en la que pudieran compartir el trabajo, la oración, las dificultades y la alegría de ayudar a los demás.</p>
+                <p>Gabriel tenía un sueño enorme, pero un pequeño problema: ¡todavía no tenía esa comunidad!</p>
+                <p>¿Dónde encontraría compañeros? ¿Cómo conseguirían una casa? ¿De qué vivirían? No tenía todas las respuestas, pero decidió intentarlo.</p>
+            </div>
+        </div>
         
         <!-- Diapositiva 3 -->
-        <div class="slide"><img src="img3.jpg" alt="Los niños del campo"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img3.jpg" alt="Los niños del campo"></div>
+        </div>
         
         <!-- Diapositiva 4 -->
-        <div class="slide"><img src="img4.jpg" alt="Mapa de los cuatro intentos"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img4.jpg" alt="Mapa de los cuatro intentos"></div>
+        </div>
         
         <!-- Diapositiva 5 -->
-        <div class="slide"><img src="img5.jpg" alt="Saint-Claude"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img5.jpg" alt="Saint-Claude"></div>
+            <button class="btn-toggle-text" onclick="toggleText(this)">📖 Leer texto</button>
+            <div class="story-text">
+                <h3>EL PRIMER INTENTO: QUEDARSE SOLO</h3>
+                <p>Gabriel llegó a Saint-Claude con muchas ganas de comenzar su proyecto. Allí se encontró con otras personas que compartían algunas de sus inquietudes y se puso manos a la obra.</p>
+                <p>Consiguieron organizar una escuela y comenzaron a recibir niños. ¡Llegaron más de ochenta!</p>
+                <p>Todo parecía marchar bien, pero sostener el proyecto no era sencillo. Aparecieron dificultades, algunos compañeros se cansaron y, poco a poco, se fueron alejando.</p>
+                <p>Hasta que Gabriel se quedó solo. La escuela que antes estaba llena de voces ya no era la misma. Su proyecto, aquel que había comenzado con tanta ilusión, no podía continuar de la manera que él había imaginado.</p>
+                <p>¿Qué harías vos en su lugar? ¿Volverías a intentarlo después de que tus compañeros se fueran?</p>
+                <p>Gabriel estaba triste. Había puesto mucho esfuerzo en aquella experiencia. Sin embargo, seguía pensando en los niños que necesitaban aprender. Y decidió buscar otra oportunidad.</p>
+            </div>
+        </div>
         
         <!-- Diapositiva 6 -->
-        <div class="slide"><img src="img6.jpg" alt="Jeurre"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img6.jpg" alt="Jeurre"></div>
+            <button class="btn-toggle-text" onclick="toggleText(this)">📖 Leer texto</button>
+            <div class="story-text">
+                <h3>EL SEGUNDO INTENTO: ¡LA CASA SE DERRUMBÓ!</h3>
+                <p>En Jeurre, dos jóvenes se unieron a Gabriel. ¡Esta vez tenía compañeros! Además, una familia les ofreció una casa para comenzar.</p>
+                <p>Podrían arreglarla, preparar los espacios y comenzar de nuevo. Gabriel seguramente ya estaba pensando en las clases, en los niños que podrían recibir y en las tareas que cada uno realizaría.</p>
+                <p>Pero cuando comenzaron los trabajos, ocurrió algo inesperado: la casa se derrumbó y quedó inutilizable.</p>
+                <p>No tenían dinero para construir otra. Por más que quisieran quedarse, no podían continuar allí. Tuvieron que marcharse. Otra vez, el proyecto quedaba interrumpido.</p>
+                <p>Gabriel había perdido otra oportunidad. Pero comenzaba a comprender que no alcanzaba con tener ganas y encontrar compañeros: también necesitaban condiciones para vivir, organizarse y sostener la misión. Y volvió a buscar.</p>
+            </div>
+        </div>
         
         <!-- Diapositiva 7 -->
-        <div class="slide"><img src="img7.jpg" alt="Courtefontaine"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img7.jpg" alt="Courtefontaine"></div>
+            <button class="btn-toggle-text" onclick="toggleText(this)">📖 Leer texto</button>
+            <div class="story-text">
+                <h3>EL TERCER INTENTO: UN LUGAR DEMASIADO LEJOS</h3>
+                <p>En Courtefontaine encontraron un antiguo monasterio donde podían instalarse. ¡Por fin tenían un lugar!</p>
+                <p>Pero pronto aparecieron nuevos problemas. El monasterio estaba muy lejos de otros pueblos, conseguir alimentos era difícil y perdieron la ayuda de un sacerdote amigo.</p>
+                <p>Algunas personas de la zona les habían tomado cariño y no querían que se fueran. Sin embargo, Gabriel sabía que quedarse allí no era una solución si no podían sostener la comunidad. Tuvieron que irse de noche, y para que la gente no notara la mudanza, tuvieron que ponerle trapos a las ruedas del carro. Se fueron sin despertar a nadie. A veces, construir algo juntos también significa reconocer que un lugar, por más bonito que parezca, no es el adecuado para llevar adelante un proyecto.</p>
+                <p>¡Qué decisión tan difícil! Tenían que dejar atrás un lugar y personas que los habían recibido con afecto. Una vez más, tuvieron que marcharse.</p>
+                <p>Tres intentos, tres comienzos difíciles. ¿Sería posible formar esa comunidad? ¿O su sueño era demasiado grande?</p>
+            </div>
+        </div>
         
         <!-- Diapositiva 8 -->
-        <div class="slide"><img src="img8.jpg" alt="Tres intentos fallidos"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img8.jpg" alt="Tres intentos fallidos"></div>
+        </div>
         
         <!-- Diapositiva 9 -->
-        <div class="slide"><img src="img9.jpg" alt="La prueba de fuego en Belmont"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img9.jpg" alt="La prueba de fuego en Belmont"></div>
+            <button class="btn-toggle-text" onclick="toggleText(this)">📖 Leer texto</button>
+            <div class="story-text">
+                <h3>EL CUARTO INTENTO: ¿AHORA SÍ?</h3>
+                <p>Gabriel siguió adelante y llegó a Belmont. Allí encontró una casa donde pudo reunir a jóvenes dispuestos a compartir su misión. ¡Ahora tenía compañeros y un lugar para comenzar!</p>
+                <p>Pero formar una comunidad era mucho más que vivir bajo el mismo techo. Había que aprender a trabajar juntos, compartir las tareas, escucharse y ayudarse cuando alguno tuviera dificultades.</p>
+                <p>Sin embargo, cuando las cosas empezaban a acomodarse, Francia atravesó tiempos de fuertes conflictos. La amenaza de una guerra obligó a Gabriel a cerrar la casa y todos debieron retornar a sus pueblos. Otra vez, sus planes estaban en peligro.</p>
+                <p>Después de tantos intentos, cualquiera podría haberse rendido. En cambio él creía que Dios lo acompañaba y que, si aquella misión tenía sentido, encontrarían la manera de continuar.</p>
+                <p>Eso no significaba quedarse esperando. Había que trabajar, buscar soluciones y volver a empezar. Y Gabriel siguió haciéndolo.</p>
+            </div>
+        </div>
         
         <!-- Diapositiva 10 -->
-        <div class="slide"><img src="img10.jpg" alt="El modelo sagrado"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img10.jpg" alt="El modelo sagrado"></div>
+        </div>
         
         <!-- Diapositiva 11 -->
-        <div class="slide"><img src="img11.jpg" alt="El sueño echa raíces"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img11.jpg" alt="El sueño echa raíces"></div>
+            <button class="btn-toggle-text" onclick="toggleText(this)">📖 Leer texto</button>
+            <div class="story-text">
+                <h3>UN SUEÑO QUE YA NO ERA SOLO SUYO</h3>
+                <p>En 1835, Gabriel pudo volver a Belmont y finalmente fundó el Instituto de los Hermanos de la Sagrada Familia. Después de tantos años de búsqueda, su sueño comenzaba a hacerse realidad.</p>
+                <p>Gabriel había descubierto que no podía hacerlo todo solo. Necesitaba personas que compartieran su misión y que estuvieran dispuestas a trabajar juntas, incluso cuando aparecieran dificultades.</p>
+                <p>La comunidad fue creciendo. Los hermanos se preparaban para enseñar, transmitir la fe y acompañar a los niños y a sus familias.</p>
+                <p>Gabriel quería que sus hermanos vivieran siguiendo el ejemplo de Jesús, María y José en Nazaret: una familia que compartía la vida cotidiana y en la que se cuidaban mutuamente.</p>
+                <p>En 1841, el papa Gregorio XVI reconoció oficialmente la Congregación.</p>
+                <p>Gabriel murió en 1864, pero su obra continuó. Los hermanos siguieron llevando adelante aquella misión en distintos lugares.</p>
+                <p>Y así, aquel joven que tantas veces tuvo que empezar de nuevo logró construir una comunidad que fue mucho más allá de lo que podía hacer por sí mismo.</p>
+                <p>Porque Gabriel aprendió algo que le llevó años descubrir: <strong>Una comunidad no se construye cuando todo sale bien. Se construye cuando las personas deciden caminar juntas, cuidarse y trabajar por algo que vale la pena.</strong></p>
+            </div>
+        </div>
         
         <!-- Diapositiva 12 -->
-        <div class="slide"><img src="img12.jpg" alt="El mayor descubrimiento"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img12.jpg" alt="El mayor descubrimiento"></div>
+        </div>
         
         <!-- Diapositiva 13 -->
-        <div class="slide"><img src="img13.jpg" alt="El diario de ruta ahora está en tus manos"></div>
+        <div class="slide-wrapper">
+            <div class="slide"><img src="img13.jpg" alt="El diario de ruta ahora está en tus manos"></div>
+            <button class="btn-toggle-text" onclick="toggleText(this)">📖 Leer preguntas finales</button>
+            <div class="story-text">
+                <h3>Y AHORA TE PREGUNTO...</h3>
+                <blockquote>Si vos hubieras conocido a Gabriel después de todos aquellos intentos fallidos, ¿te habrías animado a sumarte a su sueño?</blockquote>
+                <blockquote>¿Qué tendría que haberte transmitido para que quisieras construir esa comunidad con él?</blockquote>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -162,14 +321,26 @@
                     entry.target.classList.add('visible');
                 }
             });
-        }, { 
-            threshold: 0.15, // Se activa cuando el 15% de la imagen es visible
-            rootMargin: "0px 0px -50px 0px" 
-        });
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.slide').forEach((slide) => {
+        document.querySelectorAll('.slide-wrapper').forEach((slide) => {
             observer.observe(slide);
         });
+
+        // Función para abrir y cerrar el texto
+        function toggleText(btn) {
+            const textDiv = btn.nextElementSibling;
+            
+            // Si está abierto, lo cierra
+            if (textDiv.classList.contains('active')) {
+                textDiv.classList.remove('active');
+                btn.innerHTML = "📖 Leer texto";
+            } else {
+                // Si está cerrado, lo abre (y opcionalmente puedes cerrar los demás)
+                textDiv.classList.add('active');
+                btn.innerHTML = "📖 Ocultar texto";
+            }
+        }
     </script>
 </body>
 </html>
