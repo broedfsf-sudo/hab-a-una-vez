@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Sueño que no se Rindió - Gabriel Taborin</title>
+    <!-- Fuentes elegantes -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f7f4ea; /* Tono crema/papel */
+            --text-color: #2c3e50;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            /* Sutil textura de papel */
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            color: var(--text-color);
+            font-family: 'Lora', serif;
+            overflow-x: hidden;
+        }
+
+        /* Contenedor principal */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px 150px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 120px; /* Espacio entre diapositivas */
+        }
+
+        /* Estilo de cada diapositiva */
+        .slide {
+            width: 100%;
+            max-width: 1000px;
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            /* Marco de la imagen */
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            border: 12px solid #fff;
+            background-color: #fff;
+            position: relative;
+        }
+
+        /* Efecto cuando la diapositiva entra en pantalla */
+        .slide.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Toque especial para la última imagen */
+        .slide:last-child {
+            border-color: #e0d8c8; /* Marco más antiguo */
+            max-width: 800px;
+        }
+
+        /* Cabecera flotante (opcional, pero le da un toque profesional) */
+        header {
+            text-align: center;
+            padding: 60px 20px 20px 20px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin: 0;
+            color: #3a4a5a;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #6a7a8a;
+            font-style: italic;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .gallery-container {
+                gap: 60px;
+                padding: 20px 15px 100px 15px;
+            }
+            .slide {
+                border-width: 6px; /* Marco más fino en móviles */
+            }
+            header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>El Sueño que no se Rindió</h1>
+        <p>La inspiradora historia del Hermano Gabriel Taborin</p>
+    </header>
+
+    <div class="gallery-container">
+        <!-- Diapositiva 1 -->
+        <div class="slide"><img src="img1.jpg" alt="Portada - El Sueño que no se Rindió"></div>
+        
+        <!-- Diapositiva 2 -->
+        <div class="slide"><img src="img2.jpg" alt="Un joven con un cuaderno"></div>
+        
+        <!-- Diapositiva 3 -->
+        <div class="slide"><img src="img3.jpg" alt="Los niños del campo"></div>
+        
+        <!-- Diapositiva 4 -->
+        <div class="slide"><img src="img4.jpg" alt="Mapa de los cuatro intentos"></div>
+        
+        <!-- Diapositiva 5 -->
+        <div class="slide"><img src="img5.jpg" alt="Saint-Claude"></div>
+        
+        <!-- Diapositiva 6 -->
+        <div class="slide"><img src="img6.jpg" alt="Jeurre"></div>
+        
+        <!-- Diapositiva 7 -->
+        <div class="slide"><img src="img7.jpg" alt="Courtefontaine"></div>
+        
+        <!-- Diapositiva 8 -->
+        <div class="slide"><img src="img8.jpg" alt="Tres intentos fallidos"></div>
+        
+        <!-- Diapositiva 9 -->
+        <div class="slide"><img src="img9.jpg" alt="La prueba de fuego en Belmont"></div>
+        
+        <!-- Diapositiva 10 -->
+        <div class="slide"><img src="img10.jpg" alt="El modelo sagrado"></div>
+        
+        <!-- Diapositiva 11 -->
+        <div class="slide"><img src="img11.jpg" alt="El sueño echa raíces"></div>
+        
+        <!-- Diapositiva 12 -->
+        <div class="slide"><img src="img12.jpg" alt="El mayor descubrimiento"></div>
+        
+        <!-- Diapositiva 13 -->
+        <div class="slide"><img src="img13.jpg" alt="El diario de ruta ahora está en tus manos"></div>
+    </div>
+
+    <script>
+        // Animación: Hace que las imágenes aparezcan suavemente al bajar
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { 
+            threshold: 0.15, // Se activa cuando el 15% de la imagen es visible
+            rootMargin: "0px 0px -50px 0px" 
+        });
+
+        document.querySelectorAll('.slide').forEach((slide) => {
+            observer.observe(slide);
+        });
+    </script>
+</body>
+</html>
